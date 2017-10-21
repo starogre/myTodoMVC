@@ -1,7 +1,10 @@
+var ENTER_KEY = 13;
+var ESCAPE_KEY = 27;
+
 var util = {
 
-	uuid: function() {
-		return;
+	randomId: function() {
+		return (Math.floor(Math.random()*345346342235)).toString();
 	},
 
 	pluralize: function(word, count) {
@@ -24,7 +27,9 @@ var App = {
 		$('#addBtn').on('click', this.create.bind(this));
 		$('#todo-list').on('click', '.deleteBtn', this.destroy.bind(this));
 		$('#todo-list').on('click', '.editBtn', this.editMode.bind(this));
-		$('#todo-list').on('keyup', '.editLabel', this.editMode.bind(this));
+		$('#todo-list').on('dblclick', '.todo-name', this.editMode.bind(this));
+		$('#todo-list').on('keyup', '.editLabel', this.editFinish.bind(this));
+		$('#todo-list').on('focusout', '.editing', this.update.bind(this));
 	},
 
 	create: function() {
@@ -36,6 +41,7 @@ var App = {
 		}
 
 		this.todos.push({
+			id: util.randomId(),
 			title: val,
 			completed: false
 		});
@@ -50,7 +56,7 @@ var App = {
 		var i = 0;
 
 		this.todos.forEach( function(todo) {
-			$('#todo-list').append('<li style="width:100%; height:100%; display:block; float: left; margin:5px" class="left-align"><input id='+i+' type="text" class="editLabel" style="display:none"/></input><input id='+i+' type="checkbox" class="filled-in" style="display:inline; float:left"/></input>' + 'Completed: '+ todo.completed + ' | ' + todo.title +'<button id='+i+' style="float:right" class="deleteBtn">Delete</button><button id='+i+' style="float:right" class="editBtn">Edit</button></li>');
+			$('#todo-list').append('<li style="width:100%; height:100%; display:block; float: left; margin:5px" class="left-align"><div id='+i+' class="input-field hide" style="width:400px;"><i class="material-icons prefix">mode_edit</i><input id="edit-todo" type="text" class="validate"></div><input id='+i+' type="checkbox" class="filled-in" style="display:inline; float:left"/></input>' + 'Completed: '+ todo.completed + ' | ' + '<p id='+i+' style="display:inline" class="todo-name">' + todo.title + '</p>' + '<button id='+i+' style="float:right" class="deleteBtn">Delete</button><button id='+i+' style="float:right" class="editBtn">Edit</button></li>');
 			i++;
 		});
 		
@@ -60,6 +66,7 @@ var App = {
 
 	renderFooter: function() {
 		var todoCount;
+		this.todos = this.getActiveTodos();
 		if (this.todos) {
 			todoCount = this.todos.length;
 		} else {
@@ -72,11 +79,26 @@ var App = {
 		
 	},
 
-	editMode: function() {
+	editMode: function(e) {
+		var i = $(e.target).attr('id');
+		$(e.target).siblings().closest('div').find('#'+i).removeClass('hide');
+		$(e.target).siblings().closest('div').find('#'+i).addClass('editing');
+		$(e.target).siblings().find('#edit-todo').val(this.todos[i].title);
 
+		
+		var $input = $(e.target).siblings().find('#edit-todo');
+		// modern way to put caret at end of text focus
+		$input.focus();
+		var tmpStr = $input.val();
+		$input.val('');
+		$input.val(tmpStr);
 	},
 
 	editFinish: function() {
+
+	},
+
+	update: function() {
 
 	},
 
@@ -94,16 +116,27 @@ var App = {
 
 	},
 
-	toggleAll: function() {
-
+	toggleAll: function(el) {
+		
 	},
 
 	indexFromEl: function() {
+		var id = $(el).closest('li').attr('id');
+		var todos = this.todos;
+		var i = todos.length;
+
+		while (i--) {
+			if (todos[i].id === id) {
+				return i;
+			}
+		}
 
 	},
 
 	getActiveTodos: function() {
-
+		return this.todos.filter(function(todo) {
+			return todo;
+		})
 	},
 
 	getCompletedTodos: function() {
@@ -115,10 +148,6 @@ var App = {
 	},
 
 
-
-	update: function() {
-
-	},
 
 }
 
