@@ -10,32 +10,40 @@
 	</head>
 
 	<body>
-
-		<!--main app-->
-		<section id='todoapp' class="center-align" style="width:500px; margin:auto; display:block">
-			<!--todo header and input doesn't disappear-->
-			<header>
-				<h1>Todo list</h1>
-				<input type="text" id="new-todo" value="new todo here" style="width:400px">
-				<button id='addBtn'>Add Todo</button>
-			</header>
-			<!--toggle main on and off if todos exist-->
-			<!--includes toggle all button, empty list for todo template population-->
-			<section id='main' class="center-align" style="margin: auto">
-				<ul id='todo-list' class='left'></ul>
+		<div class="container">
+			<!--main app-->
+			<section id='todoapp' class="center-align" style="width:500px; margin:auto; display:block">
+				<!--todo header and input doesn't disappear-->
+				<header>
+					<h1>Todo list</h1>
+					
+					<div class="input-field" style="width:400px; display:inline-block;">
+          				<i class="material-icons prefix">mode_edit</i>
+				         <input id="new-todo" type="text" class="validate">
+				         <label for="new-todo">New Todo</label>
+        			</div>
+					<button id='addBtn'>Add Todo</button>
+				</header>
+				<!--toggle main on and off if todos exist-->
+				<!--includes toggle all button, empty list for todo template population-->
+				<section id='main' class="center-align" style="margin: auto">
+					<ul id='todo-list' class='left'></ul>
+				</section>
+				<!--starts empty to put footer template in-->
+				<footer id='footer' style="margin: 100px; position:relative; display:block">
+					<p style="display:inline" id='todo-count'></p>
+					<p style="display:inline">Filters: All Complete Active | </p>
+					<p style="display:inline">Clear completed</p>
+				</footer>
 			</section>
-			<!--starts empty to put footer template in-->
-			<footer id='footer'>
 
+			<!--bottom instructions-->
+			<footer id='info' style="display:block; width:300px; margin-top:100px; margin:auto; position:relative">
+				<p class='center-align' >Add todos</p>
+				<p class='center-align' >Delete todos</p>
+				<p class='center-align' >And get your shit done</p>
 			</footer>
-		</section>
-
-		<!--bottom instructions-->
-		<footer id='info' style="display:block; width:300px; margin-top:100px; margin:auto">
-			<p class='center-align' >Add todos</p>
-			<p class='center-align' >Delete todos</p>
-			<p class='center-align' >And get your shit done</p>
-		</footer>
+		</div>
 
 		<!--main and footer templates-->
 		<script type="text/javascript"></script>
