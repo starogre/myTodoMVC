@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+	<head>
+		<!--Google Icon Font-->
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<!--materialize css-->
+		<link type="text/css" rel="stylesheet" href="css/materialize.css" media="screen,projection"/>
+
+		<!--let browser know website is optimized for mobile-->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	</head>
+
+	<body>
+
+		<!--main app-->
+		<section id='todoapp' class="center-align" style="width:500px; margin:auto; display:block">
+			<!--todo header and input doesn't disappear-->
+			<header>
+				<h1>Todo list</h1>
+				<input type="text" id="new-todo" value="new todo here" style="width:400px">
+				<button id='addBtn'>Add Todo</button>
+			</header>
+			<!--toggle main on and off if todos exist-->
+			<!--includes toggle all button, empty list for todo template population-->
+			<section id='main' class="center-align" style="margin: auto">
+				<ul id='todo-list' class='left'></ul>
+			</section>
+			<!--starts empty to put footer template in-->
+			<footer id='footer'>
+
+			</footer>
+		</section>
+
+		<!--bottom instructions-->
+		<footer id='info' style="display:block; width:300px; margin-top:100px; margin:auto">
+			<p class='center-align' >Add todos</p>
+			<p class='center-align' >Delete todos</p>
+			<p class='center-align' >And get your shit done</p>
+		</footer>
+
+		<!--main and footer templates-->
+		<script type="text/javascript"></script>
+		<script type="text/javascript"></script>
+
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  		<script src="js/materialize.min.js"></script>
+  		<script src="https://rawgit.com/flatiron/director/master/build/director.min.js"></script>
+  		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
+  		<script src="js/app.js"></script>
+	</body>
+
+</html>
