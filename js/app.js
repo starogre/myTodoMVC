@@ -4,8 +4,8 @@ var util = {
 		return;
 	},
 
-	pluralize: function() {
-
+	pluralize: function(word, count) {
+		return count===1 ? word : word+'s';
 	},
 
 	store: function() {
@@ -23,12 +23,18 @@ var App = {
 	bindEvents: function() {
 		$('#addBtn').on('click', this.create.bind(this));
 		$('#todo-list').on('click', '.deleteBtn', this.destroy.bind(this));
+		$('#todo-list').on('click', '.editBtn', this.editMode.bind(this));
+		$('#todo-list').on('keyup', '.editLabel', this.editMode.bind(this));
 	},
 
 	create: function() {
 		var $input = $('#new-todo');
 		var val = $input.val();
 		
+		if (!val) {
+			return;
+		}
+
 		this.todos.push({
 			title: val,
 			completed: false
@@ -42,11 +48,27 @@ var App = {
 	render: function() {
 		$('#todo-list').empty();
 		var i = 0;
+
 		this.todos.forEach( function(todo) {
-			$('#todo-list').append('<li style="width:100%; display:block; float: left" class="left-align">' + todo.title + ' ' + todo.completed + '<button id='+i+' style="float:right" class="deleteBtn">Delete</button></li>');
+			$('#todo-list').append('<li style="width:100%; height:100%; display:block; float: left; margin:5px" class="left-align"><input id='+i+' type="text" class="editLabel" style="display:none"/></input><input id='+i+' type="checkbox" class="filled-in" style="display:inline; float:left"/></input>' + 'Completed: '+ todo.completed + ' | ' + todo.title +'<button id='+i+' style="float:right" class="deleteBtn">Delete</button><button id='+i+' style="float:right" class="editBtn">Edit</button></li>');
 			i++;
 		});
 		
+		this.renderFooter();
+	},
+
+
+	renderFooter: function() {
+		var todoCount;
+		if (this.todos) {
+			todoCount = this.todos.length;
+		} else {
+			todoCount = 0;
+		}
+		
+		var word = util.pluralize('item', todoCount);
+
+		$('#todo-count').text(todoCount + ' ' + word + ' to do total | ');
 		
 	},
 
@@ -93,10 +115,6 @@ var App = {
 	},
 
 
-
-	renderFooter: function() {
-
-	},
 
 	update: function() {
 
