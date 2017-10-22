@@ -23,11 +23,17 @@
 				         <label for="new-todo">New Todo</label>
         			</div>
 					<button id='addBtn'>Add Todo</button>
+					<div class="toggle-all-container" center-align">
+						<input type="checkbox" class="filled-in" id="toggle-all">
+						<label for="toggle-all">
+							Toggle All
+						</label>
+					</div>
 				</header>
 				<!--toggle main on and off if todos exist-->
 				<!--includes toggle all button, empty list for todo template population-->
-				<section id='main' class="center-align" style="margin: auto">
-					<ul id='todo-list' class='left'></ul>
+				<section id='main' class="center-align" style="margin: auto;">
+					<ul id='todo-list' class='left' style="background:lightblue"></ul>
 				</section>
 				<!--starts empty to put footer template in-->
 				<footer id='footer' style="margin: 100px; position:relative; display:block">
