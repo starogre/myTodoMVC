@@ -24,6 +24,7 @@ var App = {
 	},
 
 	bindEvents: function() {
+		$('#toggle-all').on('change', this.toggleAll.bind(this));
 		$('#addBtn').on('click', this.create.bind(this));
 		$('#todo-list').on('click', '.deleteBtn', this.destroy.bind(this));
 		$('#todo-list').on('click', '.editBtn', this.editMode.bind(this));
@@ -52,6 +53,8 @@ var App = {
 	},
 
 	render: function() {
+		var todos = this.getFilteredTodos();
+		$('#main').toggle(todos.length > 0);
 		$('#todo-list').empty();
 		var i = 0;
 
@@ -59,7 +62,15 @@ var App = {
 			$('#todo-list').append('<li '+'data-id="'+todo.id+'" style="width:100%; height:100%; display:block; float: left; margin:5px" class="left-align"><div '+'data-id="'+todo.id+'" id='+i+' class="input-field hide" style="width:400px;"><i class="material-icons prefix">mode_edit</i><input '+'data-id="'+todo.id+'" id="edit-todo" type="text" class="validate"></div><input id='+i+' type="checkbox" class="filled-in" style="display:inline; float:left"/></input>' + 'Completed: '+ todo.completed + ' | ' + '<p id='+i+' style="display:inline" class="todo-name">' + todo.title + '</p>' + '<button id='+i+' style="float:right" class="deleteBtn">Delete</button><button id='+i+' style="float:right" class="editBtn">Edit</button></li>');
 			i++;
 		});
-		
+
+		// if (this.todos.length !=== 0) {
+		// 	$('#main').removeClass('hide');
+		// } else {
+		// 	$('#main').addClass('hide');
+		// }
+
+
+				
 		this.renderFooter();
 
 		$('#new-todo').focus();
@@ -139,8 +150,14 @@ var App = {
 
 	},
 
-	toggleAll: function(el) {
-		
+	toggleAll: function(e) {
+		var isChecked = $(e.target).prop('checked');
+
+		this.todos.forEach(function(todo) {
+			todo.completed = isChecked;
+		});
+
+		this.render();
 	},
 
 	indexFromEl: function(el) {
