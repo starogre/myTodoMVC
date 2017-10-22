@@ -31,6 +31,7 @@ var App = {
 		$('#todo-list').on('dblclick', '.todo-name', this.editMode.bind(this));
 		$('#todo-list').on('keyup', '.editing', this.editFinish.bind(this));
 		$('#todo-list').on('focusout', '.editing', this.update.bind(this));
+		$('#todo-list').on('change', '.toggle', this.toggle.bind(this));
 	},
 
 	create: function() {
@@ -55,22 +56,21 @@ var App = {
 	render: function() {
 		var todos = this.getFilteredTodos();
 		$('#main').toggle(todos.length > 0);
+		$('#toggle-all').prop('checked', this.getActiveTodos().length===0);
 		$('#todo-list').empty();
 		var i = 0;
 
 		this.todos.forEach( function(todo) {
-			$('#todo-list').append('<li '+'data-id="'+todo.id+'" style="width:100%; height:100%; display:block; float: left; margin:5px" class="left-align"><div '+'data-id="'+todo.id+'" id='+i+' class="input-field hide" style="width:400px;"><i class="material-icons prefix">mode_edit</i><input '+'data-id="'+todo.id+'" id="edit-todo" type="text" class="validate"></div><input id='+i+' type="checkbox" class="filled-in" style="display:inline; float:left"/></input>' + 'Completed: '+ todo.completed + ' | ' + '<p id='+i+' style="display:inline" class="todo-name">' + todo.title + '</p>' + '<button id='+i+' style="float:right" class="deleteBtn">Delete</button><button id='+i+' style="float:right" class="editBtn">Edit</button></li>');
+			var isChecked;
+			if (todo.completed) {
+				isChecked = "checked";
+			} else {
+				isChecked = "";
+			}
+			$('#todo-list').append('<li '+'data-id="'+todo.id+'" style="width:100%; height:100%; display:block; float: left; margin:5px" class="left-align"><div '+'data-id="'+todo.id+'" id='+i+' class="input-field hide" style="width:400px;"><i class="material-icons prefix">mode_edit</i><input '+'data-id="'+todo.id+'" id="edit-todo" type="text" class="validate"></div><input id="check-'+todo.id+'" data-id="check-'+todo.id+'" type="checkbox" class="filled-in toggle" ' + isChecked + ' style="display:inline; float:left"/></input><label for="check-'+todo.id+'" ></label>' + 'Completed: '+ todo.completed + ' | ' + '<p id='+i+' style="display:inline" class="todo-name">' + todo.title + '</p>' + '<button id='+i+' style="float:right" class="deleteBtn">Delete</button><button id='+i+' style="float:right" class="editBtn">Edit</button></li>');
 			i++;
 		});
-
-		// if (this.todos.length !=== 0) {
-		// 	$('#main').removeClass('hide');
-		// } else {
-		// 	$('#main').addClass('hide');
-		// }
-
-
-				
+	
 		this.renderFooter();
 
 		$('#new-todo').focus();
@@ -79,7 +79,7 @@ var App = {
 
 	renderFooter: function() {
 		var todoCount;
-		this.todos = this.getActiveTodos();
+		this.todos = this.getFilteredTodos();
 		if (this.todos) {
 			todoCount = this.todos.length;
 		} else {
@@ -146,8 +146,10 @@ var App = {
 
 	},
 
-	toggle: function() {
-
+	toggle: function(e) {
+		var i = this.indexFromElCheck(e.target);
+		this.todos[i].completed = !this.todos[i].completed;
+		this.render();
 	},
 
 	toggleAll: function(e) {
@@ -155,6 +157,7 @@ var App = {
 
 		this.todos.forEach(function(todo) {
 			todo.completed = isChecked;
+			console.log(isChecked);
 		});
 
 		this.render();
@@ -167,16 +170,27 @@ var App = {
 
 		while (i--) {
 			if (todos[i].id == id) {
-				console.log(i);
 				return i;
 			}
 		}
 
 	},
 
+	indexFromElCheck: function(el) {
+		var id = $(el).closest('.toggle').data('id');
+		var todos = this.todos;
+		var i = todos.length;
+
+		while (i--) {
+			if (("check-"+todos[i].id) == (id)) {
+				return i;
+			}
+		}
+	},
+
 	getActiveTodos: function() {
 		return this.todos.filter(function(todo) {
-			return todo;
+			return !todo.completed;
 		})
 	},
 
