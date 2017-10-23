@@ -25,7 +25,14 @@ var App = {
 	init: function () {
 		this.todos = util.store('todos-jquery');
 		this.bindEvents();
-		this.render();
+		//this.render();
+
+		new Router({
+			'/:filter': function (filter) {
+				this.filter = filter;
+				this.render();
+			}.bind(this)
+		}).init('/all');
 	},
 
 	bindEvents: function() {
@@ -65,7 +72,7 @@ var App = {
 		$('#todo-list').empty();
 		var i = 0;
 
-		this.todos.forEach( function(todo) {
+		todos.forEach( function(todo) {
 			var isChecked;
 			if (todo.completed) {
 				isChecked = "checked";
@@ -86,16 +93,17 @@ var App = {
 
 	renderFooter: function() {
 		var todoCount;
-		this.todos = this.getFilteredTodos();
-		if (this.todos) {
-			todoCount = this.todos.length;
+		var todos = this.todos;
+		todos = this.getFilteredTodos();
+		if (todos) {
+			todoCount = todos.length;
 		} else {
 			todoCount = 0;
 		}
 		
 		var word = util.pluralize('item', todoCount);
 
-		$('#todo-count').text(todoCount + ' ' + word + ' to do total | ');
+		$('#todo-count').text(todoCount + ' ' + word + ' left | ');
 		
 	},
 
@@ -209,11 +217,11 @@ var App = {
 
 	getFilteredTodos: function() {
 		if (this.filter === 'active') {
-			return getActiveTodos();
+			return this.getActiveTodos();
 		}
 
 		if (this.filter === 'completed') {
-			return CompletedTodos();
+			return this.getCompletedTodos();
 		}
 
 		return this.todos;
