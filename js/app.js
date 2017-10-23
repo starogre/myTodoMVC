@@ -44,7 +44,7 @@ var App = {
 		$('#todo-list').on('keyup', '.editing', this.editFinish.bind(this));
 		$('#todo-list').on('focusout', '.editing', this.update.bind(this));
 		$('#todo-list').on('change', '.toggle', this.toggle.bind(this));
-		$('#footer').on('click', '#clear-completed', this.destroyCompleted(this));
+		$('#footer').on('click', '#clear-completed', this.destroyCompleted.bind(this));
 	},
 
 	create: function() {
