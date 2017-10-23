@@ -44,6 +44,7 @@ var App = {
 		$('#todo-list').on('keyup', '.editing', this.editFinish.bind(this));
 		$('#todo-list').on('focusout', '.editing', this.update.bind(this));
 		$('#todo-list').on('change', '.toggle', this.toggle.bind(this));
+		$('#footer').on('click', '#clear-completed', this.destroyCompleted(this));
 	},
 
 	create: function() {
@@ -72,6 +73,7 @@ var App = {
 		$('#todo-list').empty();
 		var i = 0;
 
+
 		todos.forEach( function(todo) {
 			var isChecked;
 			if (todo.completed) {
@@ -95,15 +97,16 @@ var App = {
 		var todoCount;
 		var todos = this.todos;
 		todos = this.getFilteredTodos();
+		var todosLeft = this.getActiveTodos().length;
 		if (todos) {
 			todoCount = todos.length;
 		} else {
 			todoCount = 0;
 		}
 		
-		var word = util.pluralize('item', todoCount);
+		var word = util.pluralize('item', todosLeft);
 
-		$('#todo-count').text(todoCount + ' ' + word + ' left | ');
+		$('#todo-count').text(todosLeft + ' ' + word + ' left');
 		
 	},
 
@@ -158,7 +161,9 @@ var App = {
 	},
 
 	destroyCompleted: function() {
-
+		this.todos = this.getActiveTodos();
+		this.filter = 'all';
+		this.render();
 	},
 
 	toggle: function(e) {
@@ -172,7 +177,6 @@ var App = {
 
 		this.todos.forEach(function(todo) {
 			todo.completed = isChecked;
-			console.log(isChecked);
 		});
 
 		this.render();
