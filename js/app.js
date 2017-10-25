@@ -81,7 +81,7 @@ var App = {
 			} else {
 				isChecked = "";
 			}
-			$('#todo-list').append('<li '+'data-id="'+todo.id+'" style="width:100%; height:100%; display:block; float: left; margin:5px" class="left-align"><div '+'data-id="'+todo.id+'" id='+i+' class="input-field hide" style="width:400px;"><i class="material-icons prefix">mode_edit</i><input '+'data-id="'+todo.id+'" id="edit-todo" type="text" class="validate"></div><input id="check-'+todo.id+'" data-id="check-'+todo.id+'" type="checkbox" class="filled-in toggle" ' + isChecked + ' style="display:inline; float:left"/></input><label for="check-'+todo.id+'" ></label>' + 'Completed: '+ todo.completed + ' | ' + '<p id='+i+' style="display:inline" class="todo-name">' + todo.title + '</p>' + '<button id='+i+' style="float:right" class="deleteBtn">Delete</button><button id='+i+' style="float:right" class="editBtn">Edit</button></li>');
+			$('#todo-list').append('<li '+'data-id="'+todo.id+'" style="width:100%; height:100%; display:block; float: left; margin:5px" class="left-align"><div '+'data-id="'+todo.id+'" id='+i+' class="input-field hide" style="width:400px;"><i class="material-icons prefix">mode_edit</i><input '+'data-id="'+todo.id+'" id="edit-todo" type="text" class="validate"></div><input id="check-'+todo.id+'" data-id="check-'+todo.id+'" type="checkbox" class="filled-in toggle" ' + isChecked + ' style="display:inline; float:left"/></input><label for="check-'+todo.id+'" ></label>' + '<p id='+i+' style="display:inline" class="todo-name">' + todo.title + '</p>' + '<a id='+i+' style="float:right" class="deleteBtn btn-floating btn-small waves-effect waves-light red"><i class="small material-icons">clear</i></a></li>');
 			i++;
 		});
 	
