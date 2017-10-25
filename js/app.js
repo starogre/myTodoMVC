@@ -37,7 +37,8 @@ var App = {
 
 	bindEvents: function() {
 		$('#toggle-all').on('change', this.toggleAll.bind(this));
-		$('#addBtn').on('click', this.create.bind(this));
+		//$('#addBtn').on('click', this.create.bind(this));
+		$('#new-todo').on('keyup', this.create.bind(this));
 		$('#todo-list').on('click', '.deleteBtn', this.destroy.bind(this));
 		$('#todo-list').on('click', '.editBtn', this.editMode.bind(this));
 		$('#todo-list').on('dblclick', '.todo-name', this.editMode.bind(this));
@@ -47,11 +48,11 @@ var App = {
 		$('#footer').on('click', '#clear-completed', this.destroyCompleted.bind(this));
 	},
 
-	create: function() {
+	create: function(e) {
 		var $input = $('#new-todo');
 		var val = $input.val();
 		
-		if (!val) {
+		if (e.which !== ENTER_KEY || !val) {
 			return;
 		}
 
