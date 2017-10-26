@@ -15,7 +15,7 @@
 			<section id='todoapp' class="center-align" style="width:500px; margin:auto; display:block">
 				<!--todo header and input doesn't disappear-->
 				<header>
-					<h1>Todo list</h1>
+					<h1>todo.list</h1>
 					
 					<div class="input-field" style="width:400px; display:inline-block;">
           				<i class="material-icons prefix">mode_edit</i>
@@ -36,8 +36,8 @@
 					<ul id='todo-list' class="left collection" style="width:100%"></ul>
 				</section>
 				<!--starts empty to put footer template in-->
-				<footer id='footer' style="margin: 100px; margin-top: 200px; position:relative; display:block">
-					<p style="display:inline" id='todo-count'></p>
+				<footer id='footer' style="margin: 100px; margin-bottom:10px; position:relative; display:block">
+					<p style="display:inline" class="grey-text text-darken-4" id='todo-count'></p>
 					<ul style="display:inline" class="tabs">
 						<li class="tab">
 							<a id="filterall" href="all" onclick="location.href='#/all'">All</a>
@@ -50,7 +50,7 @@
 						</li>
 					</ul>
 					<!-- <button id="clear-completed2" onclick="location.href='#/all'" style="display:inline">Clear completed</button> -->
-					<a id="clear-completed" class="waves-effect waves-light btn" onclick="location.href='#/all'" ><i class="material-icons left">clear_all</i>Clear completed</a>
+					<a id="clear-completed" class="waves-effect waves-light btn red" onclick="location.href='#/all'" style="margin:10px"><i class="material-icons left">clear_all</i>Clear completed</a>
 					<div id="all" ></div>
     				<div id="active" ></div>
     				<div id="completed" ></div>
@@ -60,10 +60,10 @@
 
 			<!--bottom instructions-->
 			<footer id='info' style="display:block; width:300px; margin-top:100px; margin:auto; position:relative">
-				<p class='center-align' >Add todos</p>
-				<p class='center-align' >Double click to edit a todo</p>
-				<p class='center-align' >Delete todos</p>
-				<p class='center-align' >And get your shit done</p>
+				<p class='center-align grey-text text-lighten-1' >Add todos</p>
+				<p class='center-align grey-text text-lighten-1' >Double click to edit a todo</p>
+				<p class='center-align grey-text text-lighten-1' >Delete todos</p>
+				<p class='center-align grey-text text-lighten-1' >And get your shit done</p>
 			</footer>
 		</div>
 
