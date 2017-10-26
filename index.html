@@ -33,24 +33,27 @@
 				<!--toggle main on and off if todos exist-->
 				<!--includes toggle all button, empty list for todo template population-->
 				<section id='main' class="center-align" style="margin: auto;">
-					<ul id='todo-list' class='left' style="background:lightblue; width:100%"></ul>
+					<ul id='todo-list' class="left collection" style="width:100%"></ul>
 				</section>
 				<!--starts empty to put footer template in-->
 				<footer id='footer' style="margin: 100px; margin-top: 200px; position:relative; display:block">
 					<p style="display:inline" id='todo-count'></p>
-					<ul style="display:inline">
-						<li>
-							<a href="#/all">All</a>
+					<ul style="display:inline" class="tabs">
+						<li class="tab">
+							<a id="filterall" href="all" onclick="location.href='#/all'">All</a>
 						</li>
-						<li>
-							<a href="#/active">Active</a>
+						<li class="tab">
+							<a id="filteractive" href="active" onclick="location.href='#/active'">Active</a>
 						</li>
-						<li>
-							<a href="#/completed">Completed</a>
+						<li class="tab">
+							<a id="filtercompleted" href="completed" onclick="location.href='#/completed'">Completed</a>
 						</li>
 					</ul>
 					<!-- <button id="clear-completed2" onclick="location.href='#/all'" style="display:inline">Clear completed</button> -->
 					<a id="clear-completed" class="waves-effect waves-light btn" onclick="location.href='#/all'" ><i class="material-icons left">clear_all</i>Clear completed</a>
+					<div id="all" ></div>
+    				<div id="active" ></div>
+    				<div id="completed" ></div>
 				</footer>
 
 			</section>
